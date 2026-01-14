@@ -39,9 +39,41 @@ async function selectRegion(page, elem_click) {
   await utils.sleep(1000);
 }
 
+async function autoScrollDown(page) {
+  page.addStyleTag({
+    content: "#headerFirstRow {position: relative !important;}",
+  });
+  page.addStyleTag({
+    content: "#bottomPortal {position: relative !important;}",
+  });
+
+  page.addStyleTag({
+    content: "#headerPortal-stickyPortal {display: none !important;}",
+  });
+
+  await utils.sleep(1000);
+  await page.evaluate(async () => {
+    await new Promise((resolve) => {
+      let totalHeight = 0;
+      const distance = 100;
+      const timer = setInterval(() => {
+        const scrollHeight = document.body.scrollHeight;
+        window.scrollBy(0, distance);
+        totalHeight += distance;
+
+        if (totalHeight >= scrollHeight) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 100); // Интервал прокрутки (мс)
+    });
+  });
+}
+
 module.exports = {
   createNewPage,
   openRegions,
   getRegions,
   selectRegion,
+  autoScrollDown,
 };

@@ -34,6 +34,7 @@ if (!url || !region) {
       .join("\n");
 
     fs.writeFileSync("product.txt", content);
+    await paging.autoScrollDown(page);
     await page.screenshot({ path: "screenshot.jpg", fullPage: true });
     process.exit(1);
   } catch (error) {
