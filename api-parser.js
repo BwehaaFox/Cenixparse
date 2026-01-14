@@ -10,7 +10,7 @@ if (!url) {
   process.exit(1);
 }
 
-async function getProducts(urlStr) {
+async function getProducts(urlStr, page) {
   const dataUrl = utils.parseUrl(urlStr);
   await utils.sleep(2000);
   const products = await page.evaluate(async (dataUrl) => {
@@ -44,7 +44,7 @@ async function getProducts(urlStr) {
     page = await paging.createNewPage(browser);
     await page.goto(url, { waitUntil: "networkidle0" });
 
-    const products = await getProducts(url);
+    const products = await getProducts(url, page);
     const origin = new URL(url).origin;
     const content = products
       .map((p) => utils.formatProductCard(p, origin))
