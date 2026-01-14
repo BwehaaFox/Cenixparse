@@ -1,5 +1,5 @@
 const utils = require("./utils");
-partClassSelector = utils.partClassSelector;
+const partClassSelector = utils.partClassSelector;
 
 async function price(page) {
   const selectors = {
