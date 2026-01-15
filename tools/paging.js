@@ -32,11 +32,8 @@ async function getRegions(page) {
 }
 
 async function selectRegion(page, elem_click) {
-  await utils.sleep(1000);
   await elem_click.click();
-  await utils.sleep(1000);
-  await page.reload({ waitUntil: "networkidle0" });
-  await utils.sleep(1000);
+  await page.reload({ waitUntil: "domcontentloaded" });
 }
 
 async function autoScrollDown(page) {

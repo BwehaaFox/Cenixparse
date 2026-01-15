@@ -39,13 +39,13 @@ async function rate(page) {
     `${block} meta[itemprop="ratingValue"]`,
     (el) => el.content
   );
-  const review = await page.$eval(
+  const reviewCount = await page.$eval(
     `${block} meta[itemprop="reviewCount"]`,
     (el) => el.content
   );
   return {
     rate,
-    review,
+    reviewCount,
   };
 }
 

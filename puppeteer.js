@@ -15,7 +15,7 @@ if (!url || !region) {
   browser = await puppeteer.launch({ headless: false });
   try {
     page = await paging.createNewPage(browser);
-    await page.goto(url, { waitUntil: "networkidle0" });
+    await page.goto(url, { waitUntil: "domcontentloaded" });
     await paging.openRegions(page);
     const regions = await paging.getRegions(page);
     const target_region = regions.find((reg) => reg.text == region);
@@ -36,7 +36,6 @@ if (!url || !region) {
     fs.writeFileSync("product.txt", content);
     await paging.autoScrollDown(page);
     await page.screenshot({ path: "screenshot.jpg", fullPage: true });
-    process.exit(1);
   } catch (error) {
     console.error("Ошибка:", error);
   } finally {

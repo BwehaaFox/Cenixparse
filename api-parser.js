@@ -51,7 +51,6 @@ async function getProducts(urlStr, page) {
       .join("\n\n");
 
     fs.writeFileSync("products-api.txt", content);
-    process.exit(1);
   } catch (error) {
     console.error("Ошибка:", error);
   } finally {
